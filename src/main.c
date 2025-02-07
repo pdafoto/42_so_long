@@ -6,7 +6,7 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:11:09 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/07 12:00:33 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/07 14:44:08 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ int	main(int argc, char **argv)
 	if (!load_map(argv[1], &map))
 	{
 		ft_printf("Error: Couldn't load map\n");
+		return (1);
+	}
+	if (!validate_map(&map))
+	{
+		free_map(&map);
 		return (1);
 	}
 	i = 0;
