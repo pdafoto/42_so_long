@@ -6,25 +6,29 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:34:28 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/01/31 16:50:03 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/07 19:34:26 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
 // Handle ESC key press
-int	handle_key(int key, void *mlx)
+int	handle_key(int key, t_game *game)
 {
 	if (key == XK_Escape)
 	{
-		mlx_loop_end(mlx);
+		free_game(game);
+		mlx_loop_end(game->mlx);
 	}
 	return (0);
 }
 
 // Handle close window button
-int	handle_close(void *mlx)
+int	handle_close(t_game *game)
 {
-	mlx_loop_end(mlx);
+	mlx_loop_end(game->mlx);
+	free_game(game);
+	exit(0);
 	return (0);
 }
+

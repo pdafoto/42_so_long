@@ -6,7 +6,7 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:11:09 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/07 14:44:08 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/07 19:31:04 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,32 @@
 
 int	main(int argc, char **argv)
 {
-	t_map	map;
-	int		i;
+	t_game	game;
 
 	if (argc != 2)
 	{
 		ft_printf("Usage: ./so_long maps/mapa.ber\n");
 		return (1);
 	}
-	if (!load_map(argv[1], &map))
+	if (!load_map(argv[1], &game.map))
 	{
 		ft_printf("Error: Couldn't load map\n");
 		return (1);
 	}
-	if (!validate_map(&map))
+	if (!validate_map(&game.map))
 	{
-		free_map(&map);
+		free_map(&game.map);
 		return (1);
 	}
-	i = 0;
-	while (i < map.height)
+	if (!init_game(&game))
 	{
-		ft_printf("%s\n", map.grid[i]);
-		i++;
+		ft_printf("Error: Couldn't start game");
+		free_map(&game.map);
+		return (1);
 	}
-	free_map(&map);
+	render_map(&game);
+	mlx_hook(game.win, KeyPress, KeyPressMask, handle_key, &game);
+	mlx_hook(game.win, DestroyNotify, StructureNotifyMask, handle_close, &game);
+	mlx_loop(game.mlx);
 	return (0);
 }
