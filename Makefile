@@ -6,7 +6,7 @@
 #    By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 14:59:06 by nperez-d          #+#    #+#              #
-#    Updated: 2025/02/07 12:24:43 by nperez-d         ###   ########.fr        #
+#    Updated: 2025/02/07 13:05:15 by nperez-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,11 +19,10 @@ INC			= includes/
 MLX_DIR		= minilibx-linux/
 LIBFT_DIR	= libft/libft/
 PRINTF_DIR	= ft_printf/
-GNL_DIR		= get_next_line/
 
 #Source files
 SRCS 	= $(SRC_DIR)main.c $(SRC_DIR)events.c $(SRC_DIR)map.c \
-			$(GNL_DIR)get_next_line.c $(GNL_DIR)get_next_line_utils.c
+			$(SRC_DIR)get_next_line.c $(SRC_DIR)get_next_line_utils.c
 OBJS 	= $(SRCS:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
 # Compiler flags
@@ -53,8 +52,6 @@ $(NAME):	$(OBJS) $(LIBFT) $(PRINTF)
 
 # Compile object files
 $(OBJ_DIR)%.o:	$(SRC_DIR)%.c | $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
-$(OBJ_DIR)%.o:	$(GNL_DIR)%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Create object folder if it doesn't exist
