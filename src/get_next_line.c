@@ -6,7 +6,7 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 11:02:19 by nperez-d          #+#    #+#             */
-/*   Updated: 2024/04/26 13:23:45 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/07 13:16:30 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ static char	*keep_remain(char *saved_lines)
 		free(saved_lines);
 		return (NULL);
 	}
-	str = malloc(sizeof(char) * (ft_strlen(saved_lines) - i + 1));
+	str = malloc(sizeof(char) * (gnl_strlen(saved_lines) - i + 1));
 	if (!str)
 		return (NULL);
 	i++;
-	ft_strlcpy(str, &saved_lines[i], ft_strlen(saved_lines) -i +1);
+	gnl_strlcpy(str, &saved_lines[i], gnl_strlen(saved_lines) -i +1);
 	free(saved_lines);
 	return (str);
 }
@@ -47,7 +47,7 @@ static char	*next_line(char *saved_lines)
 	str = (char *)malloc((i + 2) * sizeof(char));
 	if (!str)
 		return (NULL);
-	ft_strlcpy(str, saved_lines, i + 1);
+	gnl_strlcpy(str, saved_lines, i + 1);
 	if (saved_lines[i] == '\n')
 		str[i++] = '\n';
 	str[i] = '\0';
@@ -63,7 +63,7 @@ static char	*read_file(int fd, char *saved_lines)
 	if (!buffer)
 		return (NULL);
 	bytes_read = 1;
-	while (!ft_strchr(saved_lines, '\n') && bytes_read != '\0')
+	while (!gnl_strchr(saved_lines, '\n') && bytes_read != '\0')
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read < 0)
@@ -72,7 +72,7 @@ static char	*read_file(int fd, char *saved_lines)
 			return (NULL);
 		}
 		buffer[bytes_read] = '\0';
-		saved_lines = ft_strjoin(saved_lines, buffer);
+		saved_lines = gnl_strjoin(saved_lines, buffer);
 	}
 	free(buffer);
 	return (saved_lines);
