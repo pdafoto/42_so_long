@@ -6,7 +6,7 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:39:50 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/07 11:04:08 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/07 12:35:26 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <unistd.h>
-# include <stdio.h>
 # include "libft.h"
+# include "includes/ft_printf.h"
+# include "../get_next_line/get_next_line.h"
 
 typedef struct s_map
 {
