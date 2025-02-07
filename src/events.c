@@ -6,7 +6,7 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:34:28 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/07 20:04:41 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/07 21:05:30 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,3 @@ int	handle_close(t_game *game)
 	exit(0);
 	return (0);
 }
-

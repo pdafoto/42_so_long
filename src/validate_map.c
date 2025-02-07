@@ -6,7 +6,7 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:04:23 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/07 16:09:49 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/07 20:13:41 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,9 @@ static int	check_elements(t_map *map)
 		ft_printf("Error: Map must have at least one 'C'\n");
 		return (0);
 	}
-	if (exits < 1)
+	if (exits != 1)
 	{
-		ft_printf("Error: Map must contain at least one 'E'\n");
+		ft_printf("Error: Map must contain exactly one 'E'\n");
 		return (0);
 	}
 	return (1);
