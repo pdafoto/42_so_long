@@ -6,7 +6,7 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:34:28 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/07 19:34:26 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/07 20:04:41 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ int	handle_key(int key, t_game *game)
 {
 	if (key == XK_Escape)
 	{
-		free_game(game);
 		mlx_loop_end(game->mlx);
+		free_game(game);
+		exit(0);
 	}
 	return (0);
 }

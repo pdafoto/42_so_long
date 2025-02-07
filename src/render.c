@@ -6,7 +6,7 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:55:28 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/07 17:52:53 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/07 20:00:28 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,42 @@ static void	*load_image(void *mlx, char *path, int size)
 
 	img = mlx_xpm_file_to_image(mlx, path, &size, &size);
 	if (!img)
-		ft_printf("Error: Couldn't load image\n");
+		ft_printf("Error: Failed to load texture %s\n", path);
 	return (img);
 }
 
 int	init_game(t_game *game)
 {
+	game->mlx = NULL;
+	game->win = NULL;
+	game->img_wall = NULL;
+	game->img_floor = NULL;
+	game->img_player = NULL;
+	game->img_collectible = NULL;
+	game->img_exit = NULL;
+
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		return (0);
 	game->img_size = 32;
-	game->win = mlx_new_window(game->mlx, game->map.width * game->img_size, game->map.height * game->img_size, "so_long");
+	game->win = mlx_new_window(game->mlx, game->map.width * game->img_size,
+		game->map.height * game->img_size, "so_long");
 	if (!game->win)
+	{
+		free_game(game);
 		return (0);
+	}
 	game->img_wall = load_image(game->mlx, "textures/wall.xpm", game->img_size);
 	game->img_floor = load_image(game->mlx, "textures/floor.xpm", game->img_size);
 	game->img_player = load_image(game->mlx, "textures/player.xpm", game->img_size);
 	game->img_collectible = load_image(game->mlx, "textures/collectible.xpm", game->img_size);
 	game->img_exit = load_image(game->mlx, "textures/exit.xpm", game->img_size);
+	if (!game->img_wall || !game->img_floor || !game->img_player ||
+		!game->img_collectible || !game->img_exit)
+	{
+		free_game(game);
+		return (0);
+	}
 	return (1);
 }
 
@@ -73,6 +91,8 @@ int	render_map(t_game *game)
 
 void	free_game(t_game *game)
 {
+	if(!game->mlx)
+		return;
 	if (game->img_wall)
 		mlx_destroy_image(game->mlx, game->img_wall);
 	if (game->img_floor)
@@ -85,9 +105,7 @@ void	free_game(t_game *game)
 		mlx_destroy_image(game->mlx, game->img_exit);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
-	if (game->mlx)
-	{
-		mlx_destroy_display(game->mlx);
-		free(game->mlx);
-	}
+	mlx_destroy_display(game->mlx);
+	free(game->mlx);
+	game->mlx = NULL;
 }
