@@ -6,7 +6,7 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:55:28 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/07 22:08:28 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/16 21:26:18 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,24 @@ static void	put_image(t_game *game, void *img, int x, int y)
 {
 	mlx_put_image_to_window(game->mlx, game->win, img, \
 		x * game->img_size, y * game->img_size);
+}
+
+static void	put_tile(t_game *game, char tile, int x, int y)
+{
+	void	*img;
+
+	img = NULL;
+	if (tile == '1')
+		img = game->img_wall;
+	else if (tile == 'P')
+		img = game->img_player;
+	else if (tile == 'C')
+		img = game->img_collectible;
+	else if (tile == 'E')
+		img = game->img_exit;
+	put_image(game, game->img_floor, x, y);
+	if (img)
+		put_image(game, img, x, y);
 }
 
 int	render_map(t_game *game)
@@ -29,15 +47,7 @@ int	render_map(t_game *game)
 		x = 0;
 		while (x < game->map.width)
 		{
-			put_image(game, game->img_floor, x, y);
-			if (game->map.grid[y][x] == '1')
-				put_image(game, game->img_wall, x, y);
-			else if (game->map.grid[y][x] == 'P')
-				put_image(game, game->img_player, x, y);
-			else if (game->map.grid[y][x] == 'C')
-				put_image(game, game->img_collectible, x, y);
-			else if (game->map.grid[y][x] == 'E')
-				put_image(game, game->img_exit, x, y);
+			put_tile(game, game->map.grid[y][x], x, y);
 			x++;
 		}
 		y++;
