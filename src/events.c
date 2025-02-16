@@ -6,7 +6,7 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:34:28 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/16 18:38:32 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/16 19:19:30 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,20 @@ static void	move_player(t_game *game, int new_x, int new_y)
 	if (game->map.grid[new_y][new_x] == '1')
 		return ;
 	if (game->map.grid[new_y][new_x] == 'C')
+	{
 		game->map.grid[new_y][new_x] = '0';
-	if (game->map.grid[new_y][new_x] == 'E')
+		game->collectibles_left--;
+	}
+	if (game->map.grid[new_y][new_x] == 'E' && game->collectibles_left == 0)
 	{
 		ft_printf("Congratulations!\n");
 		ft_printf("You've completed the game in %d moves.\n", game->moves);
 		mlx_loop_end(game->mlx);
+	}
+	else if (game->map.grid[new_y][new_x] == 'E')
+	{
+		ft_printf("You must collect all items before exiting\n");
+		return ;
 	}
 	game->map.grid[game->player_y][game->player_x] = '0';
 	game->player_x = new_x;

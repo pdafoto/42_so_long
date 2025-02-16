@@ -6,7 +6,7 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:39:50 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/16 17:59:29 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/16 19:12:39 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_game
 	int		player_x;
 	int		player_y;
 	int		moves;
+	int		collectibles_left;
 }	t_game;
 
 int		handle_key(int key, t_game *game);

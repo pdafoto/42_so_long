@@ -6,7 +6,7 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 22:03:00 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/16 18:52:40 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/16 19:15:05 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	find_player_position(t_game *game)
 	int	x;
 	int	y;
 
+	game->collectibles_left = 0;
 	y = 0;
 	while (y < game->map.height)
 	{
@@ -27,8 +28,9 @@ static void	find_player_position(t_game *game)
 			{
 				game->player_x = x;
 				game->player_y = y;
-				return ;
 			}
+			else if (game->map.grid[y][x] == 'C')
+				game->collectibles_left++;
 			x++;
 		}
 		y++;
