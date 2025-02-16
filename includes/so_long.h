@@ -6,7 +6,7 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:39:50 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/16 20:23:48 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/16 23:30:44 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int		handle_close(t_game *game);
 int		load_map(const char *filename, t_map *map);
 void	free_map(t_map *map);
 int		validate_map(t_game *game);
+int		check_valid_chars(t_map *map);
 int		check_rectangular(t_map *map);
 int		check_walls(t_map *map);
 int		check_elements(t_map *map);

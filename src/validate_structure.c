@@ -6,11 +6,37 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 20:18:45 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/16 20:26:13 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/16 23:27:38 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+int	check_valid_chars(t_map *map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < map->height)
+	{
+		j = 0;
+		while (j < map->width)
+		{
+			if (map->grid[i][j] != '0' && map->grid[i][j] != '1' &&
+				map->grid[i][j] != 'P' && map->grid[i][j] != 'C' &&
+				map->grid[i][j] != 'E')
+			{
+				ft_printf("Error:\n");
+				ft_printf("Invalid character '%c' in map.\n", map->grid[i][j]);
+				return (0);
+			}
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
 
 int	check_rectangular(t_map *map)
 {

@@ -6,7 +6,7 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:04:23 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/16 21:17:13 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/16 23:29:37 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ int	validate_map(t_game *game)
 {
 	if (!check_rectangular(&game->map)
 		|| !check_walls(&game->map)
+		|| !check_valid_chars(&game->map)
 		|| !check_elements(&game->map))
 		return (0);
 	find_player_position(game);
