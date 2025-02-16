@@ -6,7 +6,7 @@
 #    By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 14:59:06 by nperez-d          #+#    #+#              #
-#    Updated: 2025/02/16 20:22:37 by nperez-d         ###   ########.fr        #
+#    Updated: 2025/02/16 21:53:54 by nperez-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ PRINTF_DIR	= ft_printf/
 
 #Source files
 SRCS 	= $(SRC_DIR)main.c $(SRC_DIR)events.c $(SRC_DIR)init_game.c \
-			$(SRC_DIR)map.c $(SRC_DIR)validate_map.c \
+			$(SRC_DIR)load_map.c $(SRC_DIR)validate_map.c \
 			$(SRC_DIR)validate_structure.c $(SRC_DIR)render_map.c \
 			$(SRC_DIR)get_next_line.c $(SRC_DIR)get_next_line_utils.c
 OBJS 	= $(SRCS:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
