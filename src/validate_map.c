@@ -6,11 +6,24 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:04:23 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/16 20:24:45 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/16 21:17:13 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+static void	free_map_copy(char **copy, int height)
+{
+	int	i;
+
+	i = 0;
+	while (i < height)
+	{
+		free(copy[i]);
+		i++;
+	}
+	free(copy);
+}
 
 static char	**copy_map(t_map *map)
 {
@@ -26,11 +39,7 @@ static char	**copy_map(t_map *map)
 		copy[i] = ft_strdup(map->grid[i]);
 		if (!copy[i])
 		{
-			while (--i >= 0)
-			{
-				free(copy[i]);
-			}
-			free(copy);
+			free_map_copy(copy, i);
 			return (NULL);
 		}
 		i++;
@@ -48,16 +57,6 @@ static void	flood_fill(char **map, int x, int y)
 	flood_fill(map, x - 1, y);
 	flood_fill(map, x, y + 1);
 	flood_fill(map, x, y - 1);
-}
-
-static void	free_map_copy(char **copy, int height)
-{
-	int	i;
-
-	i = 0;
-	while (i < height)
-		free(copy[i++]);
-	free(copy);
 }
 
 static int	is_map_completable(t_map *map, int px, int py)
