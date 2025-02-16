@@ -6,7 +6,7 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:11:09 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/07 19:31:04 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/16 20:03:25 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(int argc, char **argv)
 		ft_printf("Error: Couldn't load map\n");
 		return (1);
 	}
-	if (!validate_map(&game.map))
+	if (!validate_map(&game))
 	{
 		free_map(&game.map);
 		return (1);

@@ -6,114 +6,100 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:04:23 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/07 20:13:41 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/16 20:24:45 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static int	check_rectangular(t_map *map)
+static char	**copy_map(t_map *map)
 {
-	int	i;
-	int	width;
+	char	**copy;
+	int		i;
 
-	i = 0;
-	width = (int)ft_strlen(map->grid[0]);
-	while (i < map->height)
-	{
-		if ((int)ft_strlen(map->grid[i]) != width)
-		{
-			ft_printf("Error: Map is not rectangular\n");
-			return (0);
-		}
-		i++;
-	}
-	return (1);
-}
-
-static int	check_walls(t_map *map)
-{
-	int	i;
-
-	i = 0;
-	while (i < map->width)
-	{
-		if (map->grid[0][i] != '1' || map->grid[map->height - 1][i] != '1')
-		{
-			ft_printf("Error: Map is not surrounded by walls\n");
-			return (0);
-		}
-		i++;
-	}
+	copy = malloc(sizeof(char *) * (map->height + 1));
+	if (!copy)
+		return (NULL);
 	i = 0;
 	while (i < map->height)
 	{
-		if (map->grid[i][0] != '1' || map->grid[i][map->width - 1] != '1')
+		copy[i] = ft_strdup(map->grid[i]);
+		if (!copy[i])
 		{
-			ft_printf("Error: Map is not surrounded by walls\n");
-			return (0);
+			while (--i >= 0)
+			{
+				free(copy[i]);
+			}
+			free(copy);
+			return (NULL);
 		}
 		i++;
 	}
-	return (1);
+	copy[i] = NULL;
+	return (copy);
 }
 
-static int	count_element(t_map *map, char element)
+static void	flood_fill(char **map, int x, int y)
+{
+	if (map[y][x] == '1' || map[y][x] == 'X')
+		return ;
+	map[y][x] = 'X';
+	flood_fill(map, x + 1, y);
+	flood_fill(map, x - 1, y);
+	flood_fill(map, x, y + 1);
+	flood_fill(map, x, y - 1);
+}
+
+static void	free_map_copy(char **copy, int height)
 {
 	int	i;
-	int	j;
-	int	count;
 
 	i = 0;
-	count = 0;
-	while (i < map->height)
+	while (i < height)
+		free(copy[i++]);
+	free(copy);
+}
+
+static int	is_map_completable(t_map *map, int px, int py)
+{
+	char	**copy;
+	int		x;
+	int		y;
+	int		valid;
+
+	valid = 1;
+	copy = copy_map(map);
+	if (!copy)
+		return (0);
+	flood_fill(copy, px, py);
+	y = 0;
+	while (y < map->height)
 	{
-		j = 0;
-		while (j < map->width)
+		x = 0;
+		while (x < map->width)
 		{
-			if (map->grid[i][j] == element)
-				count++;
-			j++;
+			if (map->grid[y][x] == 'C' || map->grid[y][x] == 'E')
+				if (copy[y][x] != 'X')
+					valid = 0;
+			x++;
 		}
-		i++;
+		y++;
 	}
-	return (count);
+	free_map_copy(copy, map->height);
+	return (valid);
 }
 
-static int	check_elements(t_map *map)
+int	validate_map(t_game *game)
 {
-	int	player;
-	int	collectibles;
-	int	exits;
-
-	player = count_element(map, 'P');
-	collectibles = count_element(map, 'C');
-	exits = count_element(map, 'E');
-	if (player != 1)
+	if (!check_rectangular(&game->map)
+		|| !check_walls(&game->map)
+		|| !check_elements(&game->map))
+		return (0);
+	find_player_position(game);
+	if (!is_map_completable(&game->map, game->player_x, game->player_y))
 	{
-		ft_printf("Error: Map must contain exactly one 'P'\n");
+		ft_printf("Error: Map is not completable\n");
 		return (0);
 	}
-	if (collectibles < 1)
-	{
-		ft_printf("Error: Map must have at least one 'C'\n");
-		return (0);
-	}
-	if (exits != 1)
-	{
-		ft_printf("Error: Map must contain exactly one 'E'\n");
-		return (0);
-	}
-	return (1);
-}
-
-int	validate_map(t_map *map)
-{
-	if (!check_rectangular(map))
-		return (0);
-	if (!check_walls(map))
-		return (0);
-	if (!check_elements(map))
-		return (0);
 	return (1);
 }
