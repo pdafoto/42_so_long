@@ -6,13 +6,13 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 22:03:00 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/16 19:57:09 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/16 21:11:38 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	find_player_position(t_game *game)
+static void	count_collectibles(t_game *game)
 {
 	int	x;
 	int	y;
@@ -24,13 +24,30 @@ void	find_player_position(t_game *game)
 		x = 0;
 		while (x < game->map.width)
 		{
+			if (game->map.grid[y][x] == 'C')
+				game->collectibles_left++;
+			x++;
+		}
+		y++;
+	}
+}
+
+void	find_player_position(t_game *game)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < game->map.height)
+	{
+		x = 0;
+		while (x < game->map.width)
+		{
 			if (game->map.grid[y][x] == 'P')
 			{
 				game->player_x = x;
 				game->player_y = y;
 			}
-			else if (game->map.grid[y][x] == 'C')
-				game->collectibles_left++;
 			x++;
 		}
 		y++;
@@ -43,7 +60,10 @@ static void	*load_image(void *mlx, char *path, int size)
 
 	img = mlx_xpm_file_to_image(mlx, path, &size, &size);
 	if (!img)
+	{
 		ft_printf("Error: Failed to load texture %s\n", path);
+		exit(1);
+	}
 	return (img);
 }
 
@@ -71,6 +91,7 @@ int	init_game(t_game *game)
 	game->mlx = NULL;
 	game->win = NULL;
 	game->moves = 0;
+	count_collectibles(game);
 	find_player_position(game);
 	game->img_wall = NULL;
 	game->img_floor = NULL;
