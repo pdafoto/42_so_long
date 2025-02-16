@@ -6,7 +6,7 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:04:23 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/16 23:29:37 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/16 23:36:26 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 static void	free_map_copy(char **copy, int height)
 {
-	int	i;
+	int	y;
 
-	i = 0;
-	while (i < height)
+	y = 0;
+	while (y < height)
 	{
-		free(copy[i]);
-		i++;
+		free(copy[y]);
+		y++;
 	}
 	free(copy);
 }
@@ -28,23 +28,23 @@ static void	free_map_copy(char **copy, int height)
 static char	**copy_map(t_map *map)
 {
 	char	**copy;
-	int		i;
+	int		y;
 
 	copy = malloc(sizeof(char *) * (map->height + 1));
 	if (!copy)
 		return (NULL);
-	i = 0;
-	while (i < map->height)
+	y = 0;
+	while (y < map->height)
 	{
-		copy[i] = ft_strdup(map->grid[i]);
-		if (!copy[i])
+		copy[y] = ft_strdup(map->grid[y]);
+		if (!copy[y])
 		{
-			free_map_copy(copy, i);
+			free_map_copy(copy, y);
 			return (NULL);
 		}
-		i++;
+		y++;
 	}
-	copy[i] = NULL;
+	copy[y] = NULL;
 	return (copy);
 }
 

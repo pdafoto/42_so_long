@@ -6,7 +6,7 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 20:18:45 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/16 23:27:38 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/16 23:41:31 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,94 +14,94 @@
 
 int	check_valid_chars(t_map *map)
 {
-	int	i;
-	int	j;
+	int	y;
+	int	x;
 
-	i = 0;
-	while (i < map->height)
+	y = 0;
+	while (y < map->height)
 	{
-		j = 0;
-		while (j < map->width)
+		x = 0;
+		while (x < map->width)
 		{
-			if (map->grid[i][j] != '0' && map->grid[i][j] != '1' &&
-				map->grid[i][j] != 'P' && map->grid[i][j] != 'C' &&
-				map->grid[i][j] != 'E')
+			if (map->grid[y][x] != '0' && map->grid[y][x] != '1' &&
+				map->grid[y][x] != 'P' && map->grid[y][x] != 'C' &&
+				map->grid[y][x] != 'E')
 			{
 				ft_printf("Error:\n");
-				ft_printf("Invalid character '%c' in map.\n", map->grid[i][j]);
+				ft_printf("Invalid character '%c' in map.\n", map->grid[y][x]);
 				return (0);
 			}
-			j++;
+			x++;
 		}
-		i++;
+		y++;
 	}
 	return (1);
 }
 
 int	check_rectangular(t_map *map)
 {
-	int	i;
+	int	y;
 	int	width;
 
-	i = 0;
+	y = 0;
 	width = (int)ft_strlen(map->grid[0]);
-	while (i < map->height)
+	while (y < map->height)
 	{
-		if ((int)ft_strlen(map->grid[i]) != width)
+		if ((int)ft_strlen(map->grid[y]) != width)
 		{
 			ft_printf("Error: Map is not rectangular\n");
 			return (0);
 		}
-		i++;
+		y++;
 	}
 	return (1);
 }
 
 int	check_walls(t_map *map)
 {
-	int	i;
+	int	x;
 
-	i = 0;
-	while (i < map->width)
+	x = 0;
+	while (x < map->width)
 	{
-		if (map->grid[0][i] != '1' || map->grid[map->height - 1][i] != '1')
+		if (map->grid[0][x] != '1' || map->grid[map->height - 1][x] != '1')
 		{
 			ft_printf("Error: Map is not surrounded by walls\n");
 			return (0);
 		}
-		i++;
+		x++;
 	}
-	i = 0;
-	while (i < map->height)
+	x = 0;
+	while (x < map->height)
 	{
-		if (map->grid[i][0] != '1' || map->grid[i][map->width - 1] != '1')
+		if (map->grid[x][0] != '1' || map->grid[x][map->width - 1] != '1')
 		{
 			ft_printf("Error: Map is not surrounded by walls\n");
 			return (0);
 		}
-		i++;
+		x++;
 	}
 	return (1);
 }
 
 int	count_element(t_map *map, char element)
 {
-	int	i;
-	int	j;
+	int	y;
+	int	x;
 	int	count;
 
-	i = 0;
+	y = 0;
 	count = 0;
-	while (i < map->height)
+	while (y < map->height)
 	{
-		j = 0;
-		while (j < map->width)
+		x = 0;
+		while (x < map->width)
 		{
-			if (map->grid[i][j] == element)
+			if (map->grid[y][x] == element)
 				count++;
-			j++;
+			x++;
 		}
-		i++;
+		y++;
 	}
 	return (count);
 }

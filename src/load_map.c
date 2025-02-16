@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
+/*   load_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 10:02:12 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/16 21:52:08 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/16 23:33:50 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,25 +57,25 @@ static int	allocate_map(const char *filename, t_map *map, int *fd)
 
 static int	fill_map(t_map *map, int fd)
 {
-	int	i;
+	int	y;
 
-	i = 0;
-	while (i < map->height)
+	y = 0;
+	while (y < map->height)
 	{
-		map->grid[i] = get_next_line(fd);
-		if (!map->grid[i])
+		map->grid[y] = get_next_line(fd);
+		if (!map->grid[y])
 		{
 			ft_printf("Error: Failed to read map line.\n");
-			while (--i >= 0)
-				free(map->grid[i]);
+			while (--y >= 0)
+				free(map->grid[y]);
 			free(map->grid);
 			close(fd);
 			return (0);
 		}
-		map->grid[i][map->width] = '\0';
-		i++;
+		map->grid[y][map->width] = '\0';
+		y++;
 	}
-	map->grid[i] = NULL;
+	map->grid[y] = NULL;
 	close(fd);
 	return (1);
 }
@@ -95,10 +95,10 @@ int	load_map(const char *filename, t_map *map)
 
 void	free_map(t_map *map)
 {
-	int	i;
+	int	y;
 
-	i = 0;
-	while (i < map->height)
-		free(map->grid[i++]);
+	y = 0;
+	while (y < map->height)
+		free(map->grid[y++]);
 	free(map->grid);
 }
