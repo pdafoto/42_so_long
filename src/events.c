@@ -6,7 +6,7 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:34:28 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/16 20:57:31 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/16 23:11:16 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@ static void	move_player(t_game *game, int new_x, int new_y)
 		mlx_loop_end(game->mlx);
 		return ;
 	}
+	ft_printf("Moves: %d\n", game->moves);
 	game->map.grid[game->player_y][game->player_x] = '0';
 	game->player_x = new_x;
 	game->player_y = new_y;
 	game->map.grid[new_y][new_x] = 'P';
 	game->moves++;
-	ft_printf("Moves: %d\n", game->moves);
 	render_map(game);
 }
 
@@ -58,6 +58,7 @@ int	handle_key(int key, t_game *game)
 {
 	if (key == XK_Escape)
 	{
+		ft_printf("Game closed. See you next time!\n");
 		mlx_loop_end(game->mlx);
 		free_game(game);
 		exit(0);
@@ -75,6 +76,7 @@ int	handle_key(int key, t_game *game)
 
 int	handle_close(t_game *game)
 {
+	ft_printf("Game closed. See you next time!\n");
 	mlx_loop_end(game->mlx);
 	free_game(game);
 	exit(0);
