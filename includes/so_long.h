@@ -6,7 +6,7 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:39:50 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/07 19:10:32 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/16 17:59:29 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@ typedef struct s_game
 	void	*img_exit;
 	int		img_size;
 	t_map	map;
+	int		player_x;
+	int		player_y;
+	int		moves;
 }	t_game;
 
 int		handle_key(int key, t_game *game);

@@ -6,11 +6,34 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 22:03:00 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/07 22:03:53 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/16 18:52:40 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+static void	find_player_position(t_game *game)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < game->map.height)
+	{
+		x = 0;
+		while (x < game->map.width)
+		{
+			if (game->map.grid[y][x] == 'P')
+			{
+				game->player_x = x;
+				game->player_y = y;
+				return ;
+			}
+			x++;
+		}
+		y++;
+	}
+}
 
 static void	*load_image(void *mlx, char *path, int size)
 {
@@ -45,6 +68,8 @@ int	init_game(t_game *game)
 {
 	game->mlx = NULL;
 	game->win = NULL;
+	game->moves = 0;
+	find_player_position(game);
 	game->img_wall = NULL;
 	game->img_floor = NULL;
 	game->img_player = NULL;
@@ -56,12 +81,7 @@ int	init_game(t_game *game)
 	game->img_size = 32;
 	game->win = mlx_new_window(game->mlx, game->map.width * game->img_size, \
 		game->map.height * game->img_size, "so_long");
-	if (!game->win)
-	{
-		free_game(game);
-		return (0);
-	}
-	if (!load_all_images(game))
+	if (!game->win || !load_all_images(game))
 	{
 		free_game(game);
 		return (0);
