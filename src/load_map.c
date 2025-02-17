@@ -6,7 +6,7 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 10:02:12 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/17 22:29:05 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/18 00:52:14 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,14 @@ int	get_map_size(const char *filename, t_map *map)
 	line = get_next_line(fd);
 	while (line)
 	{
+		if (line[0] == '\n' || line[0] == '\0')
+		{
+			free(line);
+			ft_printf("Error\n");
+			ft_printf("Empty line detected in map\n");
+			close(fd);
+			return (0);
+		}
 		if (width == 0)
 			width = ft_strlen(line) - 1;
 		map->height++;
@@ -43,8 +51,14 @@ int	get_map_size(const char *filename, t_map *map)
 		line = get_next_line(fd);
 	}
 	close(fd);
+	if (map->height == 0)
+	{
+		ft_printf("Error\n");
+		ft_printf("Empty map\n");
+		return (0);
+	}
 	map->width = width;
-	return (map->height > 0);
+	return (1);
 }
 
 static int	allocate_map(const char *filename, t_map *map, int *fd)
