@@ -6,7 +6,7 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 10:02:12 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/17 21:12:23 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/17 21:16:33 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ static int	fill_map(t_map *map, int fd)
 		}
 		y++;
 	}
-
 	map->grid[y] = NULL;
 	close(fd);
 	return (1);
