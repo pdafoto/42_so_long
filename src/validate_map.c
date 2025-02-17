@@ -6,7 +6,7 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:04:23 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/16 23:36:26 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/17 23:30:25 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,8 @@ int	validate_map(t_game *game)
 	find_player_position(game);
 	if (!is_map_completable(&game->map, game->player_x, game->player_y))
 	{
-		ft_printf("Error: Map is not completable\n");
+		ft_printf("Error\n");
+		ft_printf("No valid path\n");
 		return (0);
 	}
 	return (1);
