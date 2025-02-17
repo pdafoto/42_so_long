@@ -6,7 +6,7 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:11:09 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/16 21:42:41 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/17 20:01:14 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	parse_args(int argc)
 {
 	if (argc != 2)
 	{
-		ft_printf("Usage: ./so_long maps/map*.ber\n");
+		ft_printf("Error: ./so_long maps/map*.ber\n");
 		return (0);
 	}
 	return (1);
