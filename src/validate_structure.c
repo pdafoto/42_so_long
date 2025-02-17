@@ -6,7 +6,7 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 20:18:45 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/16 23:41:31 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/17 21:32:37 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,18 @@ int	check_rectangular(t_map *map)
 {
 	int	y;
 	int	width;
+	int	len;
 
 	y = 0;
-	width = (int)ft_strlen(map->grid[0]);
+	width = ft_strlen(map->grid[0]);
+	if (map->grid[0][width - 1] == '\n')
+		width--;
 	while (y < map->height)
 	{
-		if ((int)ft_strlen(map->grid[y]) != width)
+		len = ft_strlen(map->grid[y]);
+		if (map->grid[y][len - 1] == '\n')
+			len--;
+		if (len != width)
 		{
 			ft_printf("Error: Map is not rectangular\n");
 			return (0);
