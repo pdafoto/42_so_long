@@ -6,11 +6,24 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:11:09 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/17 20:01:14 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/17 22:37:45 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+static int	check_file_extension(char *filename)
+{
+	int		len;
+	len = ft_strlen(filename);
+	if (len < 5 || ft_strncmp(filename + len - 4, ".ber", 4) != 0)
+	{
+		ft_printf("Error\n");
+		ft_printf("Bad extension\n");
+		return (0);
+	}
+	return (1);
+}
 
 static int	parse_args(int argc)
 {
@@ -25,10 +38,7 @@ static int	parse_args(int argc)
 static int	setup_game(t_game *game, char *map_file)
 {
 	if (!load_map(map_file, &game->map))
-	{
-		ft_printf("Error: Couldn't load map.\n");
 		return (0);
-	}
 	if (!validate_map(game))
 	{
 		free_map(&game->map);
@@ -48,6 +58,8 @@ int	main(int argc, char **argv)
 	t_game	game;
 
 	if (!parse_args(argc))
+		return (1);
+	if (!check_file_extension(argv[1]))
 		return (1);
 	if (!setup_game(&game, argv[1]))
 		return (1);

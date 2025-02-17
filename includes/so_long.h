@@ -6,7 +6,7 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:39:50 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/16 23:30:44 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/17 22:28:41 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <unistd.h>
+# include <errno.h>
+# include <string.h>
 # include "libft.h"
 # include "includes/ft_printf.h"
 # include "get_next_line.h"

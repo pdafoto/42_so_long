@@ -6,11 +6,12 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 10:02:12 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/17 21:16:33 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/17 22:29:05 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
 
 int	get_map_size(const char *filename, t_map *map)
 {
@@ -22,7 +23,13 @@ int	get_map_size(const char *filename, t_map *map)
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 	{
-		ft_printf("Error: Couldn't open file\n");
+		ft_printf("Error\n");
+		if (errno == ENOENT)
+			ft_printf("No exist map\n");
+		else if (errno == EACCES)
+			ft_printf("Permission denied\n");
+		else
+			ft_printf("Couldn't open file: %s\n", strerror(errno));
 		return (0);
 	}
 	map->height = 0;
