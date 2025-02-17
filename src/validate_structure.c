@@ -6,7 +6,7 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 20:18:45 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/17 21:32:37 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/17 23:04:48 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int	check_valid_chars(t_map *map)
 				map->grid[y][x] != 'P' && map->grid[y][x] != 'C' &&
 				map->grid[y][x] != 'E')
 			{
-				ft_printf("Error:\n");
-				ft_printf("Invalid character '%c' in map.\n", map->grid[y][x]);
+				ft_printf("Error\n");
+				ft_printf("Wrong character\n", map->grid[y][x]);
 				return (0);
 			}
 			x++;
@@ -55,7 +55,8 @@ int	check_rectangular(t_map *map)
 			len--;
 		if (len != width)
 		{
-			ft_printf("Error: Map is not rectangular\n");
+			ft_printf("Error\n");
+			ft_printf("No rectangular\n");
 			return (0);
 		}
 		y++;
@@ -123,17 +124,20 @@ int	check_elements(t_map *map)
 	exits = count_element(map, 'E');
 	if (player != 1)
 	{
-		ft_printf("Error: Map must contain exactly one 'P'\n");
+		ft_printf("Error\n");
+		ft_printf("Duplicate player\n");
 		return (0);
 	}
 	if (collectibles < 1)
 	{
-		ft_printf("Error: Map must have at least one 'C'\n");
+		ft_printf("Error\n");
+		ft_printf("No object\n");
 		return (0);
 	}
 	if (exits != 1)
 	{
-		ft_printf("Error: Map must contain exactly one 'E'\n");
+		ft_printf("Error\n");
+		ft_printf("No exit\n");
 		return (0);
 	}
 	return (1);
