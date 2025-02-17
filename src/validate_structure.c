@@ -6,7 +6,7 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 20:18:45 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/17 23:04:48 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/17 23:25:41 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	check_valid_chars(t_map *map)
 				map->grid[y][x] != 'E')
 			{
 				ft_printf("Error\n");
-				ft_printf("Wrong character\n", map->grid[y][x]);
+				ft_printf("Wrong characters\n");
 				return (0);
 			}
 			x++;
@@ -73,7 +73,8 @@ int	check_walls(t_map *map)
 	{
 		if (map->grid[0][x] != '1' || map->grid[map->height - 1][x] != '1')
 		{
-			ft_printf("Error: Map is not surrounded by walls\n");
+			ft_printf("Error\n");
+			ft_printf("Not surrounded by walls\n");
 			return (0);
 		}
 		x++;
@@ -83,7 +84,8 @@ int	check_walls(t_map *map)
 	{
 		if (map->grid[x][0] != '1' || map->grid[x][map->width - 1] != '1')
 		{
-			ft_printf("Error: Map is not surrounded by walls\n");
+			ft_printf("Error\n");
+			ft_printf("Not surrounded by walls\n");
 			return (0);
 		}
 		x++;
@@ -122,7 +124,13 @@ int	check_elements(t_map *map)
 	player = count_element(map, 'P');
 	collectibles = count_element(map, 'C');
 	exits = count_element(map, 'E');
-	if (player != 1)
+	if (player == 0)
+	{
+		ft_printf("Error\n");
+		ft_printf("No player\n");
+		return (0);
+	}
+	if (player > 1)
 	{
 		ft_printf("Error\n");
 		ft_printf("Duplicate player\n");
@@ -134,10 +142,16 @@ int	check_elements(t_map *map)
 		ft_printf("No object\n");
 		return (0);
 	}
-	if (exits != 1)
+	if (exits == 0)
 	{
 		ft_printf("Error\n");
 		ft_printf("No exit\n");
+		return (0);
+	}
+	if (exits > 1)
+	{
+		ft_printf("Error\n");
+		ft_printf("Duplicate exit\n");
 		return (0);
 	}
 	return (1);
