@@ -6,7 +6,7 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 10:02:12 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/16 23:33:50 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/17 21:12:23 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,18 +63,18 @@ static int	fill_map(t_map *map, int fd)
 	while (y < map->height)
 	{
 		map->grid[y] = get_next_line(fd);
-		if (!map->grid[y])
+		if (!map->grid[y] || map->grid[y][0] == '\n' || map->grid[y][0] == '\0')
 		{
-			ft_printf("Error: Failed to read map line.\n");
+			ft_printf("ERROR: Empty line detected at row %d!\n", y);
 			while (--y >= 0)
 				free(map->grid[y]);
 			free(map->grid);
 			close(fd);
 			return (0);
 		}
-		map->grid[y][map->width] = '\0';
 		y++;
 	}
+
 	map->grid[y] = NULL;
 	close(fd);
 	return (1);
