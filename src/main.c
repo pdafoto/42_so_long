@@ -6,7 +6,7 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 15:11:09 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/17 22:50:07 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/18 00:37:40 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,12 @@
 static int	check_file_extension(char *filename)
 {
 	int		len;
+
 	len = ft_strlen(filename);
-	if (len < 5 || ft_strncmp(filename + len - 4, ".ber", 4) != 0)
+	if (len < 5
+		|| ft_strncmp(filename + len - 4, ".ber", 4) != 0
+		|| filename[0] == '.'
+		|| filename[len - 5] == '/')
 	{
 		ft_printf("Error\n");
 		ft_printf("Bad extension\n");
