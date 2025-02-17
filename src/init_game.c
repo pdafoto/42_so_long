@@ -6,7 +6,7 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 22:03:00 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/16 21:11:38 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/16 23:46:23 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	init_game(t_game *game)
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		return (0);
-	game->img_size = 32;
+	game->img_size = 64;
 	game->win = mlx_new_window(game->mlx, game->map.width * game->img_size, \
 		game->map.height * game->img_size, "so_long");
 	if (!game->win || !load_all_images(game))
