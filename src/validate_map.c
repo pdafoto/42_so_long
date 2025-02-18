@@ -6,7 +6,7 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 14:04:23 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/17 23:30:25 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/18 15:42:24 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,33 +59,63 @@ static void	flood_fill(char **map, int x, int y)
 	flood_fill(map, x, y - 1);
 }
 
-static int	is_map_completable(t_map *map, int px, int py)
+static int	can_collect_all(t_map *map, int px, int py)
 {
 	char	**copy;
 	int		x;
 	int		y;
-	int		valid;
 
-	valid = 1;
+	copy = copy_map(map);
+	if (!copy)
+		return (0);
+	y = -1;
+	while (++y < map->height)
+	{
+		x = -1;
+		while (++x < map->width)
+			if (copy[y][x] == 'E')
+				copy[y][x] = '1';
+	}
+	flood_fill(copy, px, py);
+	y = -1;
+	while (++y < map->height)
+	{
+		x = -1;
+		while (++x < map->width)
+		{
+			if (map->grid[y][x] == 'C' && copy[y][x] != 'X')
+			{
+				free_map_copy(copy, map->height);
+				return (0);
+			}
+		}
+	}
+	free_map_copy(copy, map->height);
+	return (1);
+}
+
+static int	can_reach_exit(t_map *map, int px, int py)
+{
+	char	**copy;
+	int		x;
+	int		y;
+	int		found_exit;
+
 	copy = copy_map(map);
 	if (!copy)
 		return (0);
 	flood_fill(copy, px, py);
-	y = 0;
-	while (y < map->height)
+	found_exit = 0;
+	y = -1;
+	while (++y < map->height)
 	{
-		x = 0;
-		while (x < map->width)
-		{
-			if (map->grid[y][x] == 'C' || map->grid[y][x] == 'E')
-				if (copy[y][x] != 'X')
-					valid = 0;
-			x++;
-		}
-		y++;
+		x = -1;
+		while (++x < map->width)
+			if (map->grid[y][x] == 'E' && copy[y][x] == 'X')
+				found_exit = 1;
 	}
 	free_map_copy(copy, map->height);
-	return (valid);
+	return (found_exit);
 }
 
 int	validate_map(t_game *game)
@@ -96,7 +126,8 @@ int	validate_map(t_game *game)
 		|| !check_elements(&game->map))
 		return (0);
 	find_player_position(game);
-	if (!is_map_completable(&game->map, game->player_x, game->player_y))
+	if (!can_collect_all(&game->map, game->player_x, game->player_y)
+		|| !can_reach_exit(&game->map, game->player_x, game->player_y))
 	{
 		ft_printf("Error\n");
 		ft_printf("No valid path\n");
