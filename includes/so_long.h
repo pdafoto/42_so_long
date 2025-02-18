@@ -6,7 +6,7 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 16:39:50 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/17 22:28:41 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/18 17:54:23 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,20 @@ typedef struct s_game
 int		handle_key(int key, t_game *game);
 int		handle_close(t_game *game);
 int		load_map(const char *filename, t_map *map);
+int		open_map_file(const char *filename);
+int		read_map_dimensions(int fd, t_map *map);
+int		check_map_empty(t_map *map);
 void	free_map(t_map *map);
 int		validate_map(t_game *game);
+char	**copy_map(t_map *map);
+void	free_map_copy(char **copy, int height);
+void	flood_fill(char **map, int x, int y);
 int		check_valid_chars(t_map *map);
 int		check_rectangular(t_map *map);
 int		check_walls(t_map *map);
 int		check_elements(t_map *map);
+int		can_collect_all(t_map *map, int px, int py);
+int		can_reach_exit(t_map *map, int px, int py);
 int		render_map(t_game *game);
 int		init_game(t_game *game);
 void	free_game(t_game *game);

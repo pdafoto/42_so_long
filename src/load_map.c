@@ -6,7 +6,7 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 10:02:12 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/18 15:42:47 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/18 17:41:03 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,48 +15,18 @@
 int	get_map_size(const char *filename, t_map *map)
 {
 	int		fd;
-	char	*line;
-	int		width;
 
-	width = 0;
-	fd = open(filename, O_RDONLY);
+	fd = open_map_file(filename);
 	if (fd < 0)
-	{
-		ft_printf("Error\n");
-		if (errno == ENOENT)
-			ft_printf("No exist map\n");
-		else if (errno == EACCES)
-			ft_printf("Permission denied\n");
-		else
-			ft_printf("Couldn't open file: %s\n", strerror(errno));
 		return (0);
-	}
-	map->height = 0;
-	line = get_next_line(fd);
-	while (line)
+	if (!read_map_dimensions(fd, map))
 	{
-		if (line[0] == '\n' || line[0] == '\0')
-		{
-			free(line);
-			ft_printf("Error\n");
-			ft_printf("Empty line detected in map\n");
-			close(fd);
-			return (0);
-		}
-		if (width == 0)
-			width = ft_strlen(line) - 1;
-		map->height++;
-		free(line);
-		line = get_next_line(fd);
+		close(fd);
+		return (0);
 	}
 	close(fd);
-	if (map->height == 0)
-	{
-		ft_printf("Error\n");
-		ft_printf("Empty map\n");
+	if (!check_map_empty(map))
 		return (0);
-	}
-	map->width = width;
 	return (1);
 }
 
