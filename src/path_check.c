@@ -6,7 +6,7 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 17:01:25 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/18 19:41:22 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/18 19:51:35 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,3 @@ int	can_reach_exit(t_map *map, int px, int py)
 	free_map_copy(copy, map->height);
 	return (found_exit);
 }
-
