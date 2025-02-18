@@ -6,7 +6,7 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 17:01:25 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/18 17:16:34 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/18 19:41:22 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	replace_exits_with_walls(char **mapcpy, int height, int width)
 		x = 0;
 		while (x < width)
 		{
-			if (mapcpy[y][x == 'E'])
+			if (mapcpy[y][x] == 'E')
 				mapcpy[y][x] = '1';
 			x++;
 		}

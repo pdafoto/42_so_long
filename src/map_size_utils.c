@@ -6,7 +6,7 @@
 /*   By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 17:28:51 by nperez-d          #+#    #+#             */
-/*   Updated: 2025/02/18 17:38:07 by nperez-d         ###   ########.fr       */
+/*   Updated: 2025/02/18 19:40:05 by nperez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	open_map_file(const char *filename)
 			ft_printf("Couldn't open file: %s\n", strerror(errno));
 		return (-1);
 	}
-	return (0);
+	return (fd);
 }
 
 int	read_map_dimensions(int fd, t_map *map)
