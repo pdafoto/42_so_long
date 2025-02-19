@@ -6,7 +6,7 @@
 #    By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 14:59:06 by nperez-d          #+#    #+#              #
-#    Updated: 2025/02/18 20:06:24 by nperez-d         ###   ########.fr        #
+#    Updated: 2025/02/19 19:54:30 by nperez-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SRC_DIR		= src/
 OBJ_DIR		= objects/
 INC			= includes/
 MLX_DIR		= .minilibx-linux/
-LIBFT_DIR	= libft/libft/
+LIBFT_DIR	= libft/
 PRINTF_DIR	= ft_printf/
 
 #Source files
