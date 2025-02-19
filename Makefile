@@ -6,10 +6,11 @@
 #    By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/31 14:59:06 by nperez-d          #+#    #+#              #
-#    Updated: 2025/02/19 20:05:03 by nperez-d         ###   ########.fr        #
+#    Updated: 2025/02/19 20:37:16 by nperez-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+# Project name
 NAME 		= so_long
 
 # Folders
@@ -35,6 +36,7 @@ CC 		= gcc
 CFLAGS 	= -Wall -Wextra -Werror -I$(INC) -I$(MLX_DIR) -I$(LIBFT_DIR) -I$(PRINTF_DIR)
 
 # MiniLibx, libft & ft_printf
+MLX				= $(MLX_DIR)libmlx_linux.a
 MLX_FLAGS 		= -L$(MLX_DIR) -lmlx -lX11 -lXext -lm
 LIBFT			= $(LIBFT_DIR)libft.a
 LIBFT_FLAGS		= -L$(LIBFT_DIR) -lft
@@ -42,17 +44,20 @@ PRINTF			= $(PRINTF_DIR)libftprintf.a
 PRINTF_FLAGS	= -L$(PRINTF_DIR) -lftprintf
 
 # Main rule
-all:	$(LIBFT) $(PRINTF) $(NAME)
+all:	$(LIBFT) $(PRINTF) $(MLX) $(NAME)
 
-# Compile libft & ft_printf if they don't exist
+# Compile libft, ft_printf  & MiniLibX if they don't exist
 $(LIBFT):
 	make -C $(LIBFT_DIR)
 
 $(PRINTF):
 	make -C $(PRINTF_DIR)
 
+$(MLX):
+	make -C $(MLX_DIR)
+
 # Compile executable
-$(NAME):	$(OBJS) $(LIBFT) $(PRINTF)
+$(NAME):	$(OBJS) $(LIBFT) $(PRINTF) $(MLX)
 	$(CC) $(CFLAGS) $(OBJS) $(MLX_FLAGS) $(LIBFT_FLAGS) $(PRINTF_FLAGS) -o $(NAME)
 
 # Compile object files
@@ -68,6 +73,7 @@ clean:
 	rm -rf $(OBJ_DIR)
 	make -C $(LIBFT_DIR) clean
 	make -C $(PRINTF_DIR) clean
+	make -C $(MLX_DIR) clean
 
 # Clean everything
 fclean: 	clean
