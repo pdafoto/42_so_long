@@ -6,7 +6,7 @@
 #    By: nperez-d <nperez-d@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/02 16:53:24 by nperez-d          #+#    #+#              #
-#    Updated: 2024/10/09 13:08:04 by nperez-d         ###   ########.fr        #
+#    Updated: 2025/02/20 18:33:06 by nperez-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ OBJS	= *.o
 INC		= includes/
 
 CC		= cc
-CFLAGS	= -Wall -Wextra -Werror -g
+CFLAGS	= -Wall -Wextra -Werror -fPIC -g
 
 all: $(NAME)
 
